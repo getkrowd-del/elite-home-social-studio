@@ -11,18 +11,18 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 
 <!-- SEO Meta Tags -->
 <title>Elite Home Group — Social Studio</title>
-<meta name="description" content="Internal social post studio for Elite Home Group. Draft, approve, and schedule listing and gardening posts." />
+<meta name="description" content="Draft, approve, and schedule listing and gardening posts for Elite Home Group." />
 <meta property="og:title" content="Elite Home Group — Social Studio" />
-<meta property="og:description" content="Internal social post studio for Elite Home Group. Draft, approve, and schedule listing and gardening posts." />
+<meta property="og:description" content="Draft, approve, and schedule listing and gardening posts for Elite Home Group." />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Elite Home Group — Social Studio" />
-<meta name="twitter:description" content="Internal social post studio for Elite Home Group. Draft, approve, and schedule listing and gardening posts." />
+<meta name="twitter:description" content="Draft, approve, and schedule listing and gardening posts for Elite Home Group." />
 <!-- End SEO Meta Tags -->
 <meta name="sheet-data-url" content="https://paymegpt.com/api/public/landing-pages/5409/sheet-data">
 <script data-lp-token-hydrate>
@@ -309,403 +309,170 @@
 </script>  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="topbar" data-section="header">
-  <div class="brand">
-    <div class="mark">E</div>
-    <div>
-      <div class="name">Elite Home Group</div>
-      <div class="sub">Social Studio</div>
+<div class="hero" data-section="hero">
+  <div class="hero-img" id="heroImg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-inner">
+    <div class="topline">
+      <div class="brand">
+        <div class="mk">E</div>
+        <div><b>Elite Home Group</b><span>Social Studio</span></div>
+      </div>
+      <div class="live"><span class="d"></span> Live · Elite Home Group Demo</div>
     </div>
+    <h1>Draft it. Approve it. <em>Ship it.</em></h1>
+    <p>Turn a listing or a seasonal tip into a scheduled Facebook post in under a minute — you approve every word and pick the send time.</p>
   </div>
-  <div class="status"><span class="dot"></span> Connected · Elite Home Group Demo</div>
-</header>
-
-<div class="wrap">
-
-  <div class="tracks" data-section="tracks">
-    <div class="track active" data-track="real_estate" onclick="selectTrack('real_estate')">
-      <span class="tag">Track</span>
-      <span class="ico">🏡</span>
-      <h3>Listings</h3>
-      <p>Pick a home from your sheet and generate a gallery-ready post with enticing copy and an AI marketing image.</p>
-    </div>
-    <div class="track" data-track="gardening" onclick="selectTrack('gardening')">
-      <span class="tag">Track</span>
-      <span class="ico">🌿</span>
-      <h3>Gardening</h3>
-      <p>Seasonal tips and yard-care content. Choose a topic, set how many posts for the month, and batch-generate.</p>
-    </div>
-  </div>
-
-  <div class="panel show" id="panel-real_estate" data-section="real_estate">
-    <div class="card">
-      <div class="eyebrow">Step 1 · Choose a home</div>
-      <h2>Your listings</h2>
-      <p class="hint">Reads live from your Google Sheet. Search by city (try “Oriskany”), address, or MLS.</p>
-      <div class="search-row">
-        <input id="homeSearch" placeholder="Search city, address, or MLS…" oninput="renderHomes()">
-        <button class="btn btn-ghost" onclick="loadHomes(true)">↻ Refresh</button>
-      </div>
-      <div id="homesWrap"><div class="empty"><span class="spinner dark"></span> Loading listings…</div></div>
-    </div>
-
-    <div class="card" id="reDraftCard" style="display:none">
-      <div class="eyebrow">Step 2 · Draft the post</div>
-      <h2 id="reDraftTitle">Draft</h2>
-      <p class="hint">Generate enticing copy and a marketing image, edit anything, then approve and schedule.</p>
-      <div class="field">
-        <label>Angle (optional) — steer the tone</label>
-        <input id="reAngle" placeholder="e.g. first-time buyers, move-in ready, big backyard for entertaining">
-      </div>
-      <button class="btn btn-primary" id="reGenBtn" onclick="genRealEstate()">✨ Generate draft</button>
-
-      <div id="reDraft" style="display:none;margin-top:20px">
-        <div class="draft">
-          <div>
-            <div class="preview-img" id="reImg">No image yet</div>
-            <div class="img-actions">
-              <button class="btn btn-ghost" id="reImgBtn" onclick="genImage('real_estate')">🎨 Generate image</button>
-              <button class="btn btn-ghost" onclick="genImage('real_estate')">↻ Redo</button>
-            </div>
-          </div>
-          <div>
-            <label>Post caption</label>
-            <textarea id="reText" oninput="count('reText','reCount')"></textarea>
-            <div class="counter" id="reCount">0 characters</div>
-            <div class="divider"></div>
-            <div class="eyebrow">Step 3 · Approve &amp; schedule</div>
-            <div class="quick-times" id="reChips"></div>
-            <div class="schedule-bar">
-              <div class="field">
-                <label>Send time</label>
-                <input type="datetime-local" id="reWhen">
-              </div>
-              <button class="btn btn-clay" id="reApprove" onclick="approve('real_estate')">✓ Approve &amp; schedule</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel" id="panel-gardening" data-section="gardening">
-    <div class="card">
-      <div class="eyebrow">Step 1 · Set up the batch</div>
-      <h2>Gardening content</h2>
-      <p class="hint">Pick a topic and how many posts you want for the month. We’ll draft them one at a time so you can approve and schedule each.</p>
-      <div class="row">
-        <div class="field">
-          <label>Topic</label>
-          <select id="gTopic">
-            <option value="__month">This month’s gardening tips (auto)</option>
-            <option>Lawn care</option>
-            <option>Planting</option>
-            <option>Pest control</option>
-            <option>Watering</option>
-            <option value="__custom">Custom topic…</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Posts this month (total)</label>
-          <input class="num-input" id="gCount" type="number" min="1" max="31" value="4">
-        </div>
-      </div>
-      <div class="field" id="gCustomWrap" style="display:none">
-        <label>Custom topic</label>
-        <input id="gCustom" placeholder="e.g. preparing perennials for fall">
-      </div>
-      <div class="field">
-        <label>Region (for seasonal accuracy)</label>
-        <input id="gRegion" value="Central New York (Mohawk Valley)">
-      </div>
-      <button class="btn btn-primary" id="gStartBtn" onclick="startGarden()">🌱 Start drafting</button>
-    </div>
-
-    <div class="card" id="gDraftCard" style="display:none">
-      <div class="eyebrow">Step 2 · Review draft <span id="gProgress"></span></div>
-      <h2 id="gDraftTitle">Draft</h2>
-      <div id="gDraft">
-        <div class="draft">
-          <div>
-            <div class="preview-img" id="gImg">No image yet</div>
-            <div class="img-actions">
-              <button class="btn btn-ghost" onclick="genImage('gardening')">🎨 Generate image</button>
-              <button class="btn btn-ghost" onclick="genImage('gardening')">↻ Redo</button>
-            </div>
-          </div>
-          <div>
-            <label>Post caption</label>
-            <textarea id="gText" oninput="count('gText','gCount2')"></textarea>
-            <div class="counter" id="gCount2">0 characters</div>
-            <div class="divider"></div>
-            <div class="eyebrow">Step 3 · Approve &amp; schedule</div>
-            <div class="quick-times" id="gChips"></div>
-            <div class="schedule-bar">
-              <div class="field">
-                <label>Send time</label>
-                <input type="datetime-local" id="gWhen">
-              </div>
-              <button class="btn btn-clay" id="gApprove" onclick="approve('gardening')">✓ Approve &amp; schedule</button>
-            </div>
-            <div style="margin-top:12px">
-              <button class="btn btn-ghost" onclick="regenGarden()">↻ Redraft this one</button>
-              <button class="btn btn-ghost" onclick="skipGarden()">Skip →</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" data-section="queue">
-    <div class="eyebrow">Scheduled</div>
-    <h2>Upcoming posts</h2>
-    <p class="hint">Approved posts scheduled to Elite Home Group Demo.</p>
-    <div id="queue"><div class="empty">Nothing scheduled yet.</div></div>
-  </div>
-
 </div>
-
+<div class="wrap">
+  <nav class="rail" data-section="nav">
+    <div class="lbl">Compose</div>
+    <button class="on" data-track="real_estate" onclick="pick('real_estate')"><span class="n">01</span> Listings</button>
+    <button data-track="gardening" onclick="pick('gardening')"><span class="n">02</span> Gardening</button>
+    <div class="sep"></div>
+    <div class="lbl">Review</div>
+    <button onclick="document.getElementById('queueBlock').scrollIntoView({behavior:'smooth'})"><span class="n">&rsaquo;</span> Scheduled</button>
+  </nav>
+  <main>
+    <section class="panel on" id="p-real_estate" data-section="listings">
+      <div class="block">
+        <div class="kicker">Step 01 — Select</div>
+        <h2>Choose a listing</h2>
+        <p class="sub">Pulled live from your Google Sheet. Search by city (try &ldquo;Oriskany&rdquo;), address, or MLS.</p>
+        <div class="search">
+          <input id="q" placeholder="Search city, address, or MLS…" oninput="drawHomes()">
+          <button class="btn" onclick="loadHomes(true)">↻ Refresh</button>
+        </div>
+        <div id="homes"><div class="empty"><span class="spin"></span>&nbsp; Loading listings…</div></div>
+      </div>
+      <div class="block" id="reBlock" style="display:none">
+        <div class="kicker">Step 02 — Draft</div>
+        <h2 id="reTitle">Compose post</h2>
+        <p class="sub">Generate a caption and a marketing image, edit freely, then approve and schedule.</p>
+        <div class="field">
+          <label>Angle — optional steer</label>
+          <input id="reAngle" placeholder="e.g. first-time buyers · move-in ready · entertainer’s backyard">
+        </div>
+        <button class="btn btn-acc" id="reGen" onclick="genRE()">Generate draft →</button>
+        <div id="reDraft" style="display:none;margin-top:20px">
+          <div class="compose">
+            <div>
+              <div class="imgbox" id="reImg">No image yet</div>
+              <div class="imgrow">
+                <button class="btn sm" onclick="genImg('real_estate')">Generate image</button>
+                <button class="btn sm" onclick="genImg('real_estate')">↻ Redo</button>
+              </div>
+            </div>
+            <div>
+              <label>Caption</label>
+              <textarea id="reText" oninput="cnt('reText','reC')"></textarea>
+              <div class="cnt" id="reC">0 chars</div>
+              <div class="hr"></div>
+              <div class="kicker">Step 03 — Approve &amp; schedule</div>
+              <div class="chips" id="reChips"></div>
+              <div class="sched">
+                <div class="field"><label>Send time</label><input type="datetime-local" id="reWhen"></div>
+                <button class="btn btn-acc" id="reOk" onclick="approve('real_estate')">Approve &amp; schedule</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="panel" id="p-gardening" data-section="gardening">
+      <div class="block">
+        <div class="kicker">Step 01 — Set up</div>
+        <h2>Gardening batch</h2>
+        <p class="sub">Pick a topic and how many posts for the month. We draft them one at a time so you approve and schedule each.</p>
+        <div class="grid2">
+          <div class="field">
+            <label>Topic</label>
+            <select id="gTopic">
+              <option value="__month">This month’s gardening tips (auto)</option>
+              <option>Lawn care</option><option>Planting</option>
+              <option>Pest control</option><option>Watering</option>
+              <option value="__custom">Custom topic…</option>
+            </select>
+          </div>
+          <div class="field"><label>Posts this month</label><input type="number" id="gCount" min="1" max="31" value="4"></div>
+        </div>
+        <div class="field" id="gCustomWrap" style="display:none"><label>Custom topic</label><input id="gCustom" placeholder="e.g. preparing perennials for fall"></div>
+        <div class="field"><label>Region — for seasonal accuracy</label><input id="gRegion" value="Central New York (Mohawk Valley)"></div>
+        <button class="btn btn-acc" id="gStart" onclick="startG()">Start drafting →</button>
+      </div>
+      <div class="block" id="gBlock" style="display:none">
+        <div class="kicker">Step 02 — Review <span id="gProg" style="color:var(--muted)"></span></div>
+        <h2 id="gTitle">Draft</h2>
+        <div class="compose" style="margin-top:14px">
+          <div>
+            <div class="imgbox" id="gImg">No image yet</div>
+            <div class="imgrow">
+              <button class="btn sm" onclick="genImg('gardening')">Generate image</button>
+              <button class="btn sm" onclick="genImg('gardening')">↻ Redo</button>
+            </div>
+          </div>
+          <div>
+            <label>Caption</label>
+            <textarea id="gText" oninput="cnt('gText','gC')"></textarea>
+            <div class="cnt" id="gC">0 chars</div>
+            <div class="hr"></div>
+            <div class="kicker">Step 03 — Approve &amp; schedule</div>
+            <div class="chips" id="gChips"></div>
+            <div class="sched">
+              <div class="field"><label>Send time</label><input type="datetime-local" id="gWhen"></div>
+              <button class="btn btn-acc" id="gOk" onclick="approve('gardening')">Approve &amp; schedule</button>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn sm" onclick="genG()">↻ Redraft this</button>
+              <button class="btn sm" onclick="skipG()">Skip →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="block" id="queueBlock" data-section="queue">
+      <div class="kicker">Scheduled</div>
+      <h2>Upcoming posts</h2>
+      <p class="sub">Approved and queued to Elite Home Group Demo.</p>
+      <div id="queue"><div class="empty">Nothing scheduled yet. Your approved posts land here.</div></div>
+    </div>
+  </main>
+</div>
 <div class="toast" id="toast"></div>
-
 <script>
-const SHEET_ID = "1GTdtWJ-myTjryvlAHj1Apqfgs0-km0_4y6kkiQfXLHs";
-const SCHEDULE_WEBHOOK = "https://paymegpt.com/api/webhooks/flow/4254/958df1c70b96f0ad5421a5116ee068ad2d38688a84ec50c692a49cbd601fd819";
-const SHEET_META = document.querySelector('meta[name="sheet-data-url"]');
-const SHEET_DATA_URL = (SHEET_META && SHEET_META.content) || "https://docs.google.com/spreadsheets/d/1GTdtWJ-myTjryvlAHj1Apqfgs0-km0_4y6kkiQfXLHs/gviz/tq?tqx=out:json&sheet=Homes";
-const USE_GVIZ = SHEET_DATA_URL.indexOf('gviz')>-1;
-const LLM_PROXY = document.querySelector('meta[name="llm-proxy-url"]')?.content || "";
-const IMG_ENDPOINT = document.querySelector('meta[name="image-gen-url"]')?.content || "";
-
-let TRACK = "real_estate";
-let HOMES = [];
-let selectedHome = null;
-let draft = { real_estate:{text:"",img:""}, gardening:{text:"",img:""} };
-let garden = { topic:"", region:"", total:0, idx:0 };
-
-function toast(msg,kind){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+(kind||'');setTimeout(()=>t.className='toast',3600);}
-function count(id,tid){document.getElementById(tid).textContent=document.getElementById(id).value.length+" characters";}
-function monthName(){return new Date().toLocaleString('en-US',{month:'long'});}
-
-function selectTrack(t){
-  TRACK=t;
-  document.querySelectorAll('.track').forEach(el=>el.classList.toggle('active',el.dataset.track===t));
-  document.querySelectorAll('.panel').forEach(el=>el.classList.remove('show'));
-  document.getElementById('panel-'+t).classList.add('show');
-}
-
-function fmtLocal(d){const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+p(d.getHours())+':'+p(d.getMinutes());}
-function buildChips(chipId,whenId){
-  const now=new Date();
-  const opts=[
-    ["In 1 hour",new Date(now.getTime()+3600e3)],
-    ["Today 5 PM",atHour(now,17)],
-    ["Tomorrow 9 AM",atHour(addDays(now,1),9)],
-    ["Sat 10 AM",nextDow(now,6,10)],
-  ];
-  const wrap=document.getElementById(chipId);wrap.innerHTML="";
-  opts.forEach(([label,d])=>{
-    if(d.getTime()<now.getTime()+600e3)return;
-    const c=document.createElement('span');c.className='chip';c.textContent=label;
-    c.onclick=()=>{document.getElementById(whenId).value=fmtLocal(d);};
-    wrap.appendChild(c);
-  });
-  document.getElementById(whenId).value=fmtLocal(new Date(now.getTime()+3600e3));
-}
-function atHour(d,h){const x=new Date(d);x.setHours(h,0,0,0);return x;}
-function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x;}
-function nextDow(d,dow,h){const x=new Date(d);const diff=(dow-x.getDay()+7)%7||7;x.setDate(x.getDate()+diff);x.setHours(h,0,0,0);return x;}
-
-async function loadHomes(force){
-  const wrap=document.getElementById('homesWrap');
-  wrap.innerHTML='<div class="empty"><span class="spinner dark"></span> Loading listings…</div>';
-  try{
-    const sep=SHEET_DATA_URL.indexOf('?')>-1?'&':'?';
-    const r=await fetch(SHEET_DATA_URL+(force?(sep+'t='+Date.now()):''));
-    const raw=await r.text();
-    let rows=[];
-    if(USE_GVIZ){
-      const json=JSON.parse(raw.replace(/^[^{]*\(/,'').replace(/\);?\s*$/,''));
-      const cols=json.table.cols.map(c=>c.label);
-      rows=json.table.rows.map(row=>{const o={};row.c.forEach((cell,i)=>{o[cols[i]]=cell?cell.v:'';});return o;});
-    }else{
-      const j=JSON.parse(raw); rows=j.rows||j.data||j||[];
-    }
-    HOMES=rows.filter(x=>x.Address&&x.Status!=="Template");
-    renderHomes();
-  }catch(e){
-    wrap.innerHTML='<div class="empty">Couldn’t load listings. Make sure the sheet is shared as “Anyone with the link can view,” then hit Refresh.</div>';
-  }
-}
-function renderHomes(){
-  const q=(document.getElementById('homeSearch').value||"").toLowerCase();
-  const wrap=document.getElementById('homesWrap');
-  const list=HOMES.filter(h=>JSON.stringify(h).toLowerCase().includes(q));
-  if(!list.length){wrap.innerHTML='<div class="empty">No homes match “'+q+'”.</div>';return;}
-  wrap.innerHTML='<div class="listings">'+list.map((h)=>{
-    const img=h["Image URL"]||h.image||"";
-    const idx=HOMES.indexOf(h);
-    return '<div class="home '+(selectedHome===idx?'sel':'')+'" onclick="pickHome('+idx+')">'+
-      '<div class="ph" style="'+(img?"background-image:url('"+img+"')":'')+'">'+
-        (h.Price?'<span class="price">'+h.Price+'</span>':'')+
-      '</div>'+
-      '<div class="body">'+
-        '<div class="addr">'+(h.Address||'')+'</div>'+
-        '<div class="meta">'+[h.City,h.State].filter(Boolean).join(', ')+' · '+(h.Beds||'–')+' bd · '+(h.Baths||'–')+' ba · '+(h.SqFt||'–')+' sqft</div>'+
-        '<span class="badge">'+(h.Type||'Home')+'</span>'+
-      '</div>'+
-    '</div>';
-  }).join('')+'</div>';
-}
-function pickHome(idx){
-  selectedHome=idx;renderHomes();
-  const h=HOMES[idx];
-  document.getElementById('reDraftCard').style.display='block';
-  document.getElementById('reDraftTitle').textContent=(h.Address||'Listing');
-  document.getElementById('reDraft').style.display='none';
-  draft.real_estate={text:"",img:h["Image URL"]||""};
-  document.getElementById('reDraftCard').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-async function askLLM(prompt,system){
-  if(!LLM_PROXY){
-    return "[Add an OpenAI or Claude API key in your dashboard Settings to enable AI drafting. Meanwhile, type or paste your caption here.]";
-  }
-  try{
-    const r=await fetch(LLM_PROXY+"/anthropic",{
-      method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:700,system:system||"",messages:[{role:"user",content:prompt}]})
-    });
-    const j=await r.json();
-    return (j.content||[]).filter(b=>b.type==='text').map(b=>b.text).join("\n").trim()||"(no text returned)";
-  }catch(e){
-    // try openai shape
-    const r=await fetch(LLM_PROXY+"/openai",{
-      method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"gpt-5.5",messages:[{role:"system",content:system||""},{role:"user",content:prompt}]})
-    });
-    const j=await r.json();
-    return j.choices?.[0]?.message?.content?.trim()||"(no text returned)";
-  }
-}
-
-async function genRealEstate(){
-  const h=HOMES[selectedHome];if(!h){toast("Pick a home first");return;}
-  const btn=document.getElementById('reGenBtn');btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Writing…';
-  const angle=document.getElementById('reAngle').value;
-  const prompt="Write an enticing Facebook post for this real estate listing from Elite Home Group.\n"+
-    "Address: "+h.Address+", "+h.City+", "+h.State+" "+(h.Zip||'')+"\n"+
-    "Price: "+h.Price+" | "+h.Beds+" bed / "+h.Baths+" bath | "+h.SqFt+" sqft | "+h.Type+"\n"+
-    "Features: "+(h.Features||'')+"\n"+
-    (angle?("Emphasize this angle: "+angle+"\n"):'')+
-    "Rules: warm, vivid, community-aware, 2 short paragraphs max, a clear call to action to message or call for a showing, then 4-6 relevant hashtags on their own line. No markdown.";
-  try{
-    const txt=await askLLM(prompt,"You are a top-producing real estate marketer who writes scroll-stopping, tasteful listing posts.");
-    draft.real_estate.text=txt;
-    document.getElementById('reText').value=txt;count('reText','reCount');
-    document.getElementById('reDraft').style.display='block';
-    if(h["Image URL"]){document.getElementById('reImg').style.backgroundImage="url('"+h["Image URL"]+"')";document.getElementById('reImg').textContent='';draft.real_estate.img=h["Image URL"];}
-    buildChips('reChips','reWhen');
-  }catch(e){toast("Generation failed — try again",'err');}
-  btn.disabled=false;btn.innerHTML='✨ Regenerate draft';
-}
-
-document.getElementById('gTopic').addEventListener('change',e=>{
-  document.getElementById('gCustomWrap').style.display=e.target.value==='__custom'?'block':'none';
-});
-function topicLabel(){
-  const v=document.getElementById('gTopic').value;
-  if(v==='__month')return monthName()+' gardening tips';
-  if(v==='__custom')return document.getElementById('gCustom').value||'Gardening tips';
-  return v;
-}
-function startGarden(){
-  garden.topic=topicLabel();
-  garden.region=document.getElementById('gRegion').value;
-  garden.total=Math.max(1,parseInt(document.getElementById('gCount').value)||1);
-  garden.idx=0;
-  document.getElementById('gDraftCard').style.display='block';
-  nextGarden();
-}
-async function nextGarden(){
-  if(garden.idx>=garden.total){
-    document.getElementById('gDraftCard').innerHTML='<div class="empty">✓ All '+garden.total+' gardening posts drafted for '+monthName()+'. Nice work.</div>';
-    return;
-  }
-  document.getElementById('gProgress').textContent='('+(garden.idx+1)+' of '+garden.total+')';
-  document.getElementById('gDraftTitle').textContent=garden.topic+' — #'+(garden.idx+1);
-  await genGarden();
-}
-async function genGarden(){
-  const ta=document.getElementById('gText');ta.value="Writing…";
-  const prompt="Write Facebook post #"+(garden.idx+1)+" of "+garden.total+" in a monthly series about \""+garden.topic+"\" for a home-services audience in "+garden.region+". Month: "+monthName()+".\n"+
-    "Make THIS post distinct from the others in the series (vary the specific tip). One practical, seasonal tip readers can act on this week, in a friendly expert voice. 1 short paragraph, then a light call to action, then 3-5 hashtags on their own line. No markdown.";
-  try{
-    const txt=await askLLM(prompt,"You are a friendly master gardener writing concise, genuinely useful seasonal tips.");
-    draft.gardening.text=txt;ta.value=txt;count('gText','gCount2');
-    buildChips('gChips','gWhen');
-  }catch(e){ta.value="";toast("Generation failed",'err');}
-}
-function regenGarden(){genGarden();}
-function skipGarden(){garden.idx++;nextGarden();}
-
-async function genImage(track){
-  const box=document.getElementById(track==='real_estate'?'reImg':'gImg');
-  box.textContent='';box.innerHTML='<span class="spinner dark"></span>';
-  let prompt;
-  if(track==='real_estate'){
-    const h=HOMES[selectedHome];
-    prompt="Professional real estate marketing photo of "+h.Type+" home at "+h.Address+", "+h.City+" "+h.State+". "+(h.Features||'')+". Bold clean text overlay: \""+h.Price+"\" and \""+h.Beds+" BED / "+h.Baths+" BATH\" and \"NEW LISTING\". Warm inviting light, magazine quality.";
-  }else{
-    prompt="Beautiful, bright lifestyle photo illustrating \""+garden.topic+"\" for "+monthName()+" in "+garden.region+". Clean composition, natural light, space for text. Tasteful, editorial gardening magazine style.";
-  }
-  const endpoint=IMG_ENDPOINT|| (LLM_PROXY? LLM_PROXY.replace(/\/llm.*/,'')+"/generate-image":"");
-  if(!endpoint){box.innerHTML='Add an image API key in Settings to enable image generation';return;}
-  try{
-    const r=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt,aspectRatio:"1:1"})});
-    const j=await r.json();
-    const url=j.url||j.imageUrl||(j.data&&j.data[0]&&j.data[0].url)||"";
-    if(url){box.style.backgroundImage="url('"+url+"')";box.innerHTML='';draft[track].img=url;}
-    else{box.innerHTML='No image returned';}
-  }catch(e){box.innerHTML='Image generation unavailable';}
-}
-
-async function approve(track){
-  const text=document.getElementById(track==='real_estate'?'reText':'gText').value.trim();
-  const when=document.getElementById(track==='real_estate'?'reWhen':'gWhen').value;
-  const img=draft[track].img||"";
-  if(!text){toast("Nothing to schedule — draft first",'err');return;}
-  if(!when){toast("Pick a send time",'err');return;}
-  const whenDate=new Date(when);
-  if(whenDate.getTime()<Date.now()+600e3){toast("Pick a time at least 10 min out",'err');return;}
-  const ref=track==='real_estate'?((HOMES[selectedHome]&&(HOMES[selectedHome].MLS||HOMES[selectedHome].Address))||''):(garden.topic+' #'+(garden.idx+1));
-  const btn=document.getElementById(track==='real_estate'?'reApprove':'gApprove');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Scheduling…';
-  try{
-    await fetch(SCHEDULE_WEBHOOK,{
-      method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        contactName:"EHG Dashboard",contactEmail:"dashboard@elitehomegroup.demo",
-        data:{message:text,imageUrl:img,scheduledTime:whenDate.toISOString(),reference:ref,postType:track}
-      })
-    });
-    addToQueue({img,text,when:whenDate});
-    toast("Scheduled for "+whenDate.toLocaleString(),'ok');
-    if(track==='gardening'){garden.idx++;setTimeout(nextGarden,700);}
-  }catch(e){toast("Couldn’t reach scheduler",'err');}
-  btn.disabled=false;btn.innerHTML='✓ Approve &amp; schedule';
-}
-function addToQueue(o){
-  const q=document.getElementById('queue');
-  if(q.querySelector('.empty'))q.innerHTML='';
-  const el=document.createElement('div');el.className='queue-item';
-  el.innerHTML='<div class="qimg" style="'+(o.img?"background-image:url('"+o.img+"')":'')+'"></div>'+
-    '<div class="qmsg">'+o.text.replace(/</g,'&lt;').slice(0,140)+'</div>'+
-    '<div style="text-align:right"><div class="qtime">'+o.when.toLocaleString([], {month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+'</div><span class="st scheduled">Scheduled</span></div>';
-  q.prepend(el);
-}
-
-buildChips('reChips','reWhen');
+var HERO_IMG="https://paymegpt.com/objects/generated-images/693/1783647861797-9dd53c87bec243f6.png";
+document.getElementById('heroImg').style.backgroundImage="url('"+HERO_IMG+"')";
+var SCHEDULE_WEBHOOK="https://paymegpt.com/api/webhooks/flow/4254/958df1c70b96f0ad5421a5116ee068ad2d38688a84ec50c692a49cbd601fd819";
+var M=document.querySelector('meta[name="sheet-data-url"]');
+var SHEET_URL=(M&&M.content)||"https://docs.google.com/spreadsheets/d/1GTdtWJ-myTjryvlAHj1Apqfgs0-km0_4y6kkiQfXLHs/gviz/tq?tqx=out:json&sheet=Homes";
+var GVIZ=SHEET_URL.indexOf('gviz')>-1;
+var LLM=(document.querySelector('meta[name="llm-proxy-url"]')||{}).content||"";
+var IMG=(document.querySelector('meta[name="image-gen-url"]')||{}).content||"";
+var TRACK="real_estate",HOMES=[],SEL=null,DR={real_estate:{t:"",i:""},gardening:{t:"",i:""}},G={topic:"",region:"",total:0,idx:0};
+function toast(m,k){var t=document.getElementById('toast');t.textContent=m;t.className='toast show '+(k||'');setTimeout(function(){t.className='toast';},3400);}
+function cnt(i,c){document.getElementById(c).textContent=document.getElementById(i).value.length+" chars";}
+function mon(){return new Date().toLocaleString('en-US',{month:'long'});}
+function pick(t){TRACK=t;document.querySelectorAll('.rail button').forEach(function(b){if(b.dataset.track)b.classList.toggle('on',b.dataset.track===t);});document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});document.getElementById('p-'+t).classList.add('on');}
+function fmt(d){function p(n){return String(n).padStart(2,'0');}return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'T'+p(d.getHours())+':'+p(d.getMinutes());}
+function chips(cid,wid){var now=new Date();var o=[["In 1 hour",new Date(now.getTime()+36e5)],["Today 5 PM",ah(now,17)],["Tomorrow 9 AM",ah(ad(now,1),9)],["Sat 10 AM",nd(now,6,10)]];var w=document.getElementById(cid);w.innerHTML="";o.forEach(function(x){if(x[1].getTime()<now.getTime()+6e5)return;var c=document.createElement('span');c.className='chip';c.textContent=x[0];c.onclick=function(){document.getElementById(wid).value=fmt(x[1]);};w.appendChild(c);});document.getElementById(wid).value=fmt(new Date(now.getTime()+36e5));}
+function ah(d,h){var x=new Date(d);x.setHours(h,0,0,0);return x;}
+function ad(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x;}
+function nd(d,w,h){var x=new Date(d);var f=(w-x.getDay()+7)%7||7;x.setDate(x.getDate()+f);x.setHours(h,0,0,0);return x;}
+function loadHomes(force){var wrap=document.getElementById('homes');wrap.innerHTML='<div class="empty"><span class="spin"></span>&nbsp; Loading listings…</div>';var sep=SHEET_URL.indexOf('?')>-1?'&':'?';fetch(SHEET_URL+(force?(sep+'t='+Date.now()):'')).then(function(r){return r.text();}).then(function(raw){var rows=[];if(GVIZ){var j=JSON.parse(raw.replace(/^[^{]*\(/,'').replace(/\);?\s*$/,''));var cols=j.table.cols.map(function(c){return c.label;});rows=j.table.rows.map(function(row){var o={};row.c.forEach(function(cell,i){o[cols[i]]=cell?cell.v:'';});return o;});}else{var jj=JSON.parse(raw);rows=jj.rows||jj.data||jj||[];}HOMES=rows.filter(function(x){return x.Address&&x.Status!=="Template";});drawHomes();}).catch(function(){wrap.innerHTML='<div class="empty">Couldn’t load listings. Set the sheet to “Anyone with the link — Viewer,” then Refresh.</div>';});}
+function drawHomes(){var q=(document.getElementById('q').value||"").toLowerCase();var wrap=document.getElementById('homes');var list=HOMES.filter(function(h){return JSON.stringify(h).toLowerCase().indexOf(q)>-1;});if(!list.length){wrap.innerHTML='<div class="empty">No homes match “'+q+'”.</div>';return;}wrap.innerHTML='<div class="homes">'+list.map(function(h){var img=h["Image URL"]||h.image||"";var idx=HOMES.indexOf(h);return '<div class="home '+(SEL===idx?'sel':'')+'" onclick="pickHome('+idx+')"><div class="ph" style="'+(img?"background-image:url('"+img+"')":'')+'">'+(h.Price?'<span class="pr">'+h.Price+'</span>':'')+'</div><div class="bd"><div class="ad">'+(h.Address||'')+'</div><div class="mt">'+[h.City,h.State].filter(Boolean).join(', ')+' · '+(h.Beds||'–')+' bd · '+(h.Baths||'–')+' ba · '+(h.SqFt||'–')+' sqft</div><div class="tp">'+(h.Type||'Home')+'</div></div></div>';}).join('')+'</div>';}
+function pickHome(i){SEL=i;drawHomes();var h=HOMES[i];document.getElementById('reBlock').style.display='block';document.getElementById('reTitle').textContent=h.Address||'Listing';document.getElementById('reDraft').style.display='none';DR.real_estate={t:"",i:h["Image URL"]||""};document.getElementById('reBlock').scrollIntoView({behavior:'smooth',block:'start'});}
+function askLLM(prompt,sys){if(!LLM)return Promise.resolve("[Add an OpenAI or Claude API key in Settings → Integrations to enable AI drafting. For now, type or paste your caption here.]");return fetch(LLM+"/anthropic",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:700,system:sys||"",messages:[{role:"user",content:prompt}]})}).then(function(r){return r.json();}).then(function(j){return (j.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join("\n").trim()||"(no text)";}).catch(function(){return fetch(LLM+"/openai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"gpt-5.5",messages:[{role:"system",content:sys||""},{role:"user",content:prompt}]})}).then(function(r){return r.json();}).then(function(j){return (((j.choices||[])[0]||{}).message||{}).content||"(no text)";});});}
+function genRE(){var h=HOMES[SEL];if(!h){toast("Pick a home first");return;}var b=document.getElementById('reGen');b.disabled=true;b.innerHTML='<span class="spin"></span> Writing…';var a=document.getElementById('reAngle').value;var p="Write an enticing Facebook post for this Elite Home Group listing.\nAddress: "+h.Address+", "+h.City+", "+h.State+" "+(h.Zip||'')+"\nPrice: "+h.Price+" | "+h.Beds+" bed / "+h.Baths+" bath | "+h.SqFt+" sqft | "+h.Type+"\nFeatures: "+(h.Features||'')+"\n"+(a?("Emphasize: "+a+"\n"):'')+"Warm, vivid, community-aware. 2 short paragraphs, a clear call to message or call for a showing, then 4-6 hashtags on their own line. No markdown.";askLLM(p,"You are a top-producing real estate marketer writing scroll-stopping, tasteful listing posts.").then(function(t){DR.real_estate.t=t;document.getElementById('reText').value=t;cnt('reText','reC');document.getElementById('reDraft').style.display='block';if(h["Image URL"]){var box=document.getElementById('reImg');box.style.backgroundImage="url('"+h["Image URL"]+"')";box.textContent='';DR.real_estate.i=h["Image URL"];}chips('reChips','reWhen');b.disabled=false;b.innerHTML='↻ Regenerate';});}
+document.getElementById('gTopic').addEventListener('change',function(e){document.getElementById('gCustomWrap').style.display=e.target.value==='__custom'?'block':'none';});
+function gLabel(){var v=document.getElementById('gTopic').value;if(v==='__month')return mon()+' gardening tips';if(v==='__custom')return document.getElementById('gCustom').value||'Gardening tips';return v;}
+function startG(){G.topic=gLabel();G.region=document.getElementById('gRegion').value;G.total=Math.max(1,parseInt(document.getElementById('gCount').value)||1);G.idx=0;document.getElementById('gBlock').style.display='block';nextG();}
+function nextG(){if(G.idx>=G.total){document.getElementById('gBlock').innerHTML='<div class="empty">✓ All '+G.total+' gardening posts drafted for '+mon()+'.</div>';return;}document.getElementById('gProg').textContent='('+(G.idx+1)+' of '+G.total+')';document.getElementById('gTitle').textContent=G.topic+' — #'+(G.idx+1);genG();}
+function genG(){var ta=document.getElementById('gText');ta.value="Writing…";var p="Write Facebook post #"+(G.idx+1)+" of "+G.total+" in a monthly series about \""+G.topic+"\" for a home-services audience in "+G.region+". Month: "+mon()+". Make THIS post distinct (vary the tip). One practical seasonal tip readers can act on this week, friendly expert voice. 1 short paragraph, a light call to action, then 3-5 hashtags on their own line. No markdown.";askLLM(p,"You are a friendly master gardener writing concise, useful seasonal tips.").then(function(t){DR.gardening.t=t;ta.value=t;cnt('gText','gC');chips('gChips','gWhen');});}
+function skipG(){G.idx++;nextG();}
+function genImg(track){var box=document.getElementById(track==='real_estate'?'reImg':'gImg');box.textContent='';box.innerHTML='<span class="spin"></span>';var p;if(track==='real_estate'){var h=HOMES[SEL];p="Professional real estate marketing photo of "+h.Type+" home at "+h.Address+", "+h.City+" "+h.State+". "+(h.Features||'')+". Clean bold text overlay: \""+h.Price+"\" and \""+h.Beds+" BED / "+h.Baths+" BATH\" and \"NEW LISTING\". Warm light, magazine quality.";}else{p="Bright editorial lifestyle photo illustrating \""+G.topic+"\" for "+mon()+" in "+G.region+". Natural light, space for text.";}var ep=IMG||(LLM?LLM.replace(/\/llm.*/,'')+"/generate-image":"");if(!ep){box.innerHTML='Add an image API key in Settings to enable this';return;}fetch(ep,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:p,aspectRatio:"1:1"})}).then(function(r){return r.json();}).then(function(j){var u=j.url||j.imageUrl||((j.data||[])[0]||{}).url||"";if(u){box.style.backgroundImage="url('"+u+"')";box.innerHTML='';DR[track].i=u;}else box.innerHTML='No image returned';}).catch(function(){box.innerHTML='Image generation unavailable';});}
+function approve(track){var text=document.getElementById(track==='real_estate'?'reText':'gText').value.trim();var when=document.getElementById(track==='real_estate'?'reWhen':'gWhen').value;var img=DR[track].i||"";if(!text){toast("Draft something first",'err');return;}if(!when){toast("Pick a send time",'err');return;}var wd=new Date(when);if(wd.getTime()<Date.now()+6e5){toast("Pick a time 10+ min out",'err');return;}var ref=track==='real_estate'?((HOMES[SEL]&&(HOMES[SEL].MLS||HOMES[SEL].Address))||''):(G.topic+' #'+(G.idx+1));var b=document.getElementById(track==='real_estate'?'reOk':'gOk');b.disabled=true;b.innerHTML='<span class="spin"></span> Scheduling…';fetch(SCHEDULE_WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contactName:"EHG Dashboard",contactEmail:"dashboard@elitehomegroup.demo",data:{message:text,imageUrl:img,scheduledTime:wd.toISOString(),reference:ref,postType:track}})}).then(function(){addQ(img,text,wd);toast("Scheduled for "+wd.toLocaleString(),'ok');b.disabled=false;b.innerHTML='Approve &amp; schedule';if(track==='gardening'){G.idx++;setTimeout(nextG,700);}}).catch(function(){toast("Couldn’t reach scheduler",'err');b.disabled=false;b.innerHTML='Approve &amp; schedule';});}
+function addQ(img,text,wd){var q=document.getElementById('queue');var e=q.querySelector('.empty');if(e)q.innerHTML='';var d=document.createElement('div');d.className='q';d.innerHTML='<div class="qi" style="'+(img?"background-image:url('"+img+"')":'')+'"></div><div class="qm">'+text.replace(/</g,'&lt;').slice(0,140)+'<div class="tag">Scheduled</div></div><div class="qt">'+wd.toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+'</div>';q.prepend(d);}
+chips('reChips','reWhen');
 loadHomes();
 </script>
 </body>
