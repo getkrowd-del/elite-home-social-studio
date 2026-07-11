@@ -335,6 +335,7 @@
   </nav>
   <main>
     <section class="panel on" id="p-real_estate" data-section="listings">
+      
       <div class="block">
         <div class="kicker">Step 01 — Select</div>
         <h2>Choose a listing</h2>
@@ -368,7 +369,19 @@
               <textarea id="reText" oninput="cnt('reText','reC')"></textarea>
               <div class="cnt" id="reC">0 chars</div>
               <div class="hr"></div>
-              <div class="kicker">Step 03 — Approve &amp; schedule</div>
+              <div class="kicker">Step 03 — Format</div>
+              <div class="segs">
+                <button class="seg on" data-fmt="single" onclick="setFmt(this,'single')">Single image</button>
+                <button class="seg" data-fmt="gallery" onclick="setFmt(this,'gallery')">Gallery</button>
+                <button class="seg" data-fmt="video" onclick="setFmt(this,'video')">Video reel</button>
+              </div>
+              <p class="fmt-note" id="reFmtNote">One image + caption.</p>
+              <div class="segs" style="margin-top:10px">
+                <button class="seg on" data-plat="facebook" onclick="setPlat(this,'facebook')">Facebook</button>
+                <button class="seg" data-plat="both" onclick="setPlat(this,'both')">Facebook + Instagram</button>
+              </div>
+              <div class="hr"></div>
+              <div class="kicker">Step 04 — Approve &amp; schedule</div>
               <div class="chips" id="reChips"></div>
               <div class="sched">
                 <div class="field"><label>Send time</label><input type="datetime-local" id="reWhen"></div>
